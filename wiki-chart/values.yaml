@@ -295,6 +295,10 @@ grafana:
     server:
       root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana"
       serve_from_sub_path: true
+    security:
+      disable_initial_admin_creation: true
+    auth:
+      disable_login_form: false
 
 # Ingress Configuration
 ingress:
