@@ -300,34 +300,33 @@ grafana:
 ingress:
   enabled: true
   className: "nginx"
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  annotations: {}
   hosts:
     - host: ""
       paths:
-        - path: /users(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /users
+          pathType: Prefix
           backend:
             service:
               name: wiki-chart-fastapi
               port:
                 number: 8000
-        - path: /posts(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /posts
+          pathType: Prefix
           backend:
             service:
               name: wiki-chart-fastapi
               port:
                 number: 8000
-        - path: /docs(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /docs
+          pathType: Prefix
           backend:
             service:
               name: wiki-chart-fastapi
               port:
                 number: 8000
-        - path: /grafana(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /grafana
+          pathType: Prefix
           backend:
             service:
               name: wiki-chart-grafana
