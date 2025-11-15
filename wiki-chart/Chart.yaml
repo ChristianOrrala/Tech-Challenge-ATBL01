@@ -7,8 +7,8 @@ appVersion: "1.0.0"
 
 dependencies:
   - name: postgresql
-    version: 15.5.38
-    repository: https://charts.bitnami.com/bitnami
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+    version: ">=18.0.0 <19.0.0"
     condition: postgresql.enabled
 
   - name: prometheus
