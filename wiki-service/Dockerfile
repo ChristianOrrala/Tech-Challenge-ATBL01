@@ -8,7 +8,12 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    DB_USER=postgres \
+    DB_PASSWORD=postgres \
+    DB_HOST=postgres \
+    DB_PORT=5432 \
+    DB_NAME=wiki
 
 # Copy requirements file
 COPY nebula-aurora-assignment/requirements.txt .
@@ -18,9 +23,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY nebula-aurora-assignment/app ./app
-
-# Create directory for SQLite database
-RUN mkdir -p /app/data
 
 # Expose port 8000
 EXPOSE 8000
