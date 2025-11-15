@@ -284,7 +284,7 @@ grafana:
             },
             "timepicker": {},
             "timezone": "",
-            "title": "Creation Dashboard",
+            "title": "Creation",
             "uid": "creation-dashboard-678",
             "version": 1,
             "weekStart": ""
