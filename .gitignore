@@ -40,3 +40,4 @@ terraform.rc
 # Custom
 .claude
 .vscode/
+.DS_Store
