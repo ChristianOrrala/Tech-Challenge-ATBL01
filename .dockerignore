@@ -1,0 +1,36 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+docs/
+README.md
+REQUIREMENTS.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.Python
+
+# Helm charts generated files (will be regenerated)
+wiki-chart/charts/*.tgz
+wiki-chart/Chart.lock
+
+# Temporary files
+*.log
+*.tmp
+tmp/
+temp/
