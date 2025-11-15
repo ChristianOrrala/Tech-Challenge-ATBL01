@@ -319,6 +319,13 @@ ingress:
               name: wiki-chart-fastapi
               port:
                 number: 8000
+        - path: /docs(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
         - path: /grafana(/|$)(.*)
           pathType: ImplementationSpecific
           backend:

@@ -142,8 +142,10 @@ log_info "==================================================="
 log_info "Available endpoints:"
 log_info "  - FastAPI Users:  http://localhost:8080/users/"
 log_info "  - FastAPI Posts:  http://localhost:8080/posts/"
-log_info "  - Grafana:        http://localhost:8080/grafana/d/creation-dashboard-678/creation"
+log_info "  - FastAPI Docs:   http://localhost:8080/docs"
+log_info "  - Grafana:        http://localhost:8080/grafana/"
 log_info "    (username: admin, password: admin)"
+log_info "    Dashboard:      http://localhost:8080/grafana/d/creation-dashboard-678/creation"
 log_info "==================================================="
 
 # Keep container running
