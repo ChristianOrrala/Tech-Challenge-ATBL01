@@ -33,6 +33,9 @@ postgresql:
     database: "wiki"
 
   primary:
+    # Disable resourcesPreset to use custom resource limits
+    resourcesPreset: "none"
+
     resources:
       requests:
         cpu: "400m"  # 0.40 vCPU
