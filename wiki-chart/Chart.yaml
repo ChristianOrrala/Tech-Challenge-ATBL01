@@ -1,0 +1,22 @@
+apiVersion: v2
+name: wiki-chart
+description: A Helm umbrella chart for Wikipedia-like API service with FastAPI, PostgreSQL, Prometheus, and Grafana
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: postgresql
+    version: 15.5.38
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+
+  - name: prometheus
+    version: 25.30.1
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: prometheus.enabled
+
+  - name: grafana
+    version: 8.8.2
+    repository: https://grafana.github.io/helm-charts
+    condition: grafana.enabled
