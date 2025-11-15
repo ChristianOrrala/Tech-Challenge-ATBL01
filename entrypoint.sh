@@ -94,6 +94,14 @@ kubectl wait --namespace ingress-nginx \
     --selector=app.kubernetes.io/component=controller \
     --timeout=300s || log_warn "Ingress controller may still be starting..."
 
+# Wait for admission webhook to have endpoints
+log_info "Waiting for NGINX Ingress admission webhook endpoints..."
+wait_for 120 5 "kubectl get endpoints -n ingress-nginx ingress-nginx-controller-admission -o jsonpath='{.subsets[*].addresses[*].ip}' | grep -q ." "Waiting for admission webhook endpoints to be available..."
+
+# Add a small delay to ensure webhook is fully initialized
+log_info "Allowing admission webhook to fully initialize..."
+sleep 10
+
 # Add Helm repositories
 log_info "Adding Helm repositories..."
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
