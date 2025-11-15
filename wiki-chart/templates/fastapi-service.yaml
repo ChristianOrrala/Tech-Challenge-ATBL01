@@ -1,0 +1,17 @@
+{{- if .Values.fastapi.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wiki-chart.fullname" . }}-fastapi
+  labels:
+    {{- include "wiki-chart.fastapi.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.fastapi.service.type }}
+  ports:
+  - port: {{ .Values.fastapi.service.port }}
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    {{- include "wiki-chart.fastapi.selectorLabels" . | nindent 4 }}
+{{- end }}
