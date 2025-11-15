@@ -311,6 +311,13 @@ ingress:
               name: wiki-chart-fastapi
               port:
                 number: 8000
+        - path: /user
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
         - path: /posts
           pathType: Prefix
           backend:
@@ -320,6 +327,13 @@ ingress:
                 number: 8000
         - path: /docs
           pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /openapi.json
+          pathType: Exact
           backend:
             service:
               name: wiki-chart-fastapi
