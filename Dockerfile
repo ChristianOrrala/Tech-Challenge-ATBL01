@@ -38,22 +38,9 @@ WORKDIR /workspace
 COPY wiki-service/ ./wiki-service/
 COPY wiki-chart/ ./wiki-chart/
 
-# Pre-build the wiki-service Docker image to optimize layer caching
-# This layer will be cached unless wiki-service files change
-RUN dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 & \
-    DOCKER_PID=$! && \
-    timeout=60 && \
-    while ! docker info >/dev/null 2>&1 && [ $timeout -gt 0 ]; do \
-        sleep 1; \
-        timeout=$((timeout - 1)); \
-    done && \
-    if [ $timeout -eq 0 ]; then \
-        echo "Docker daemon failed to start" && exit 1; \
-    fi && \
-    docker build -t wiki-service:latest ./wiki-service && \
-    docker save wiki-service:latest -o /tmp/wiki-service.tar && \
-    kill $DOCKER_PID && \
-    wait $DOCKER_PID 2>/dev/null || true
+# Note: wiki-service image will be built at runtime by entrypoint.sh
+# This approach is necessary because dockerd cannot run during docker build
+# without privileged mode (requires CAP_SYS_ADMIN and other capabilities)
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh

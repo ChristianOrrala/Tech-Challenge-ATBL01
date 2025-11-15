@@ -54,17 +54,11 @@ dockerd-entrypoint.sh dockerd \
 # Wait for Docker daemon to be ready
 wait_for 60 2 "docker info >/dev/null 2>&1" "Waiting for Docker daemon to be ready..."
 
-# Load pre-built wiki-service image
-if [ -f /tmp/wiki-service.tar ]; then
-    log_info "Loading pre-built wiki-service image..."
-    docker load -i /tmp/wiki-service.tar
-    log_info "Wiki-service image loaded successfully"
-else
-    log_warn "Pre-built image not found, building wiki-service image..."
-    cd /workspace
-    docker build -t wiki-service:latest ./wiki-service
-    log_info "Wiki-service image built successfully"
-fi
+# Build wiki-service image at runtime
+log_info "Building wiki-service image..."
+cd /workspace
+docker build -t wiki-service:latest ./wiki-service
+log_info "Wiki-service image built successfully"
 
 # Verify image exists
 docker images | grep wiki-service || {
