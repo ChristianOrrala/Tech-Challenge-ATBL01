@@ -117,7 +117,6 @@ helm dependency build
 log_info "Deploying wiki-chart to wiki-app namespace..."
 helm upgrade --install wiki-chart . \
     --namespace wiki-app \
-    --create-namespace \
     --wait \
     --timeout 10m \
     --set fastapi.image_name=wiki-service:latest
