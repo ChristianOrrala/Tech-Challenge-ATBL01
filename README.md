@@ -107,7 +107,7 @@ All resources for this practice were created in the **default namespace**. Norma
 
 ### Persistence and Storage
 
-For data persistence, I decided to rely on **k3d's default local-path provisioner** using Persistent Volume Claims (PVCs) for each deployment. This allows pods to be deleted without losing data. However, this data is ephemeral outside the main container as no external storage is configured—a reasonable trade-off for a test environment.
+For data persistence, I decided to rely on **k3d's default local-path provisioner** using Persistent Volume Claims (PVCs) for each deployment. This allows pods to be deleted without losing data. However, this data is ephemeral outside the main container as no external storage is configured, a reasonable trade-off for a test environment.
 
 ### Version Management and Dependencies
 
