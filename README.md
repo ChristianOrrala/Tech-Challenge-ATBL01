@@ -127,7 +127,7 @@ The `wiki-service/test_api.sh` script was used throughout development to:
 
 ```bash
 # From host (cluster must be running)
-docker exec wiki-cluster bash -c "cd /wiki-service && ./test_api.sh"
+docker exec wiki-cluster bash -c "cd /workspace/wiki-service && chmod +x test_api.sh && ./test_api.sh"
 
 # Or copy script to host and run
 chmod +x wiki-service/test_api.sh
