@@ -33,6 +33,8 @@ This project implements a scalable API service for managing users and posts, sim
 
 ### System Components
 
+![Wiki Service Architecture](docs/img/wiki-service.png)
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Docker Container                          │
