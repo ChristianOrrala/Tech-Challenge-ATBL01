@@ -1,6 +1,5 @@
 # Namespace Configuration
 namespace:
-  create: true
   name: wiki-app
 
 # FastAPI Application Configuration
