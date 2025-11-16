@@ -1,3 +1,8 @@
+# Namespace Configuration
+namespace:
+  create: true
+  name: wiki-app
+
 # FastAPI Application Configuration
 fastapi:
   enabled: true
@@ -27,6 +32,7 @@ fastapi:
 # PostgreSQL Configuration (Bitnami Chart)
 postgresql:
   enabled: true
+  namespaceOverride: wiki-app
   auth:
     username: "postgres"
     password: "postgres"
@@ -51,6 +57,7 @@ postgresql:
 # Prometheus Configuration
 prometheus:
   enabled: true
+  namespaceOverride: wiki-app
 
   server:
     resources:
@@ -95,6 +102,7 @@ prometheus:
 # Grafana Configuration
 grafana:
   enabled: true
+  namespaceOverride: wiki-app
 
   adminUser: "admin"
   adminPassword: "admin"
@@ -134,7 +142,7 @@ grafana:
       label: grafana_dashboard
       folder: /tmp/dashboards
       defaultFolderName: default
-      searchNamespace: ALL
+      searchNamespace: wiki-app
 
   # Dashboard configuration loaded from external ConfigMap
   # See: wiki-chart/dashboards/creation-dashboard.json

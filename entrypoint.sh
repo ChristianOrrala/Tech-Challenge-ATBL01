@@ -114,9 +114,9 @@ cd /workspace/wiki-chart
 helm dependency build
 
 # Deploy the Helm chart
-log_info "Deploying wiki-chart..."
+log_info "Deploying wiki-chart to wiki-app namespace..."
 helm upgrade --install wiki-chart . \
-    --namespace default \
+    --namespace wiki-app \
     --create-namespace \
     --wait \
     --timeout 10m \
@@ -124,17 +124,17 @@ helm upgrade --install wiki-chart . \
 
 log_info "Waiting for all pods to be ready..."
 # Wait for all pods to be running
-kubectl wait --for=condition=ready pod --all -n default --timeout=600s || log_warn "Some pods may still be initializing..."
+kubectl wait --for=condition=ready pod --all -n wiki-app --timeout=600s || log_warn "Some pods may still be initializing..."
 
 # Display deployment status
 log_info "==================================================="
 log_info "Deployment Status:"
 log_info "==================================================="
-kubectl get pods -n default
+kubectl get pods -n wiki-app
 echo ""
-kubectl get svc -n default
+kubectl get svc -n wiki-app
 echo ""
-kubectl get ingress -n default
+kubectl get ingress -n wiki-app
 
 log_info "==================================================="
 log_info "Wiki Cluster is ready!"
