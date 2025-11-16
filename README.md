@@ -69,6 +69,8 @@ Resources consume ~70% of container capacity, leaving headroom for cluster compo
 
 **Grafana Dashboard Automation**: Used sidecar pattern with ConfigMap containing pre-configured JSON dashboard, eliminating manual import steps.
 
+**Namespace Isolation**: All components deployed to dedicated `wiki-app` namespace following production best practices. Provides logical isolation, simplifies RBAC/quota management, and prevents naming conflicts.
+
 ### Resource Management
 
 **70% Allocation**: Set resource limits/requests to consume ~70% of container capacity (see table above), leaving headroom for k3d cluster components and preventing resource exhaustion in single-node configuration.
