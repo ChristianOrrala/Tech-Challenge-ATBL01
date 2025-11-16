@@ -103,33 +103,7 @@ docker logs -f wiki-cluster
 
 Startup takes 3-5 minutes. Wait for "Wiki Cluster is ready!" message.
 
-**Optional: Custom Port or Remote Server Configuration**
-
-If you're running on a custom port or remote server, set environment variables so the logs display correct URLs:
-
-```bash
-# Custom port (e.g., 9999 instead of 8080)
-docker run --privileged \
-  -e HOST_PORT=9999 \
-  -p 9999:8080 \
-  --name wiki-cluster wiki-cluster
-
-# Remote server with custom hostname
-docker run --privileged \
-  -e HOST_PORT=8080 \
-  -e HOST_NAME=myserver.example.com \
-  -p 8080:8080 \
-  --name wiki-cluster wiki-cluster
-
-# Remote server with custom port
-docker run --privileged \
-  -e HOST_PORT=9999 \
-  -e HOST_NAME=192.168.1.100 \
-  -p 9999:8080 \
-  --name wiki-cluster wiki-cluster
-```
-
-> **Note**: The `HOST_PORT` and `HOST_NAME` variables only affect the endpoint URLs displayed in the logs. Without them, logs will always show `http://localhost:8080/...` regardless of actual port mapping.
+> **Note**: For custom ports or remote servers, set `-e HOST_PORT=<port>` and `-e HOST_NAME=<hostname>` so logs display correct URLs (e.g., `docker run --privileged -e HOST_PORT=9999 -e HOST_NAME=myserver.com -p 9999:8080 --name wiki-cluster wiki-cluster`).
 
 ### Endpoints
 
