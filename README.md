@@ -6,6 +6,8 @@ A production-ready, containerized Wikipedia-like API service featuring user and 
 
 This project implements a scalable API service for managing users and posts, similar to a simplified Wikipedia. The service is built with modern cloud-native technologies and can be deployed either as a standalone Kubernetes cluster or run entirely within a single Docker container.
 
+![Wiki Application](docs/img/wiki-app-01.jpg)
+
 ### Key Features
 
 - **RESTful API** - FastAPI-based service for creating and managing users and posts
