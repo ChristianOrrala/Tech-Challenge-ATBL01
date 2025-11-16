@@ -1,6 +1,6 @@
 # ATBL01 - Wikipedia-like API Service
 
-A production-ready, containerized Wikipedia-like API service featuring user and post management with comprehensive monitoring and visualization capabilities. The system runs a complete Kubernetes cluster inside a Docker container using k3d (Docker-in-Docker).
+A containerized Wikipedia-like API service featuring user and post management with comprehensive monitoring and visualization capabilities. The system runs a complete Kubernetes cluster inside a Docker container using k3d (Docker-in-Docker).
 
 ## Overview
 
@@ -14,7 +14,7 @@ This project implements a scalable API service for managing users and posts, sim
 - **Data Persistence** - PostgreSQL database with proper relationships and indexing
 - **Metrics & Monitoring** - Prometheus metrics collection for tracking user and post creation rates
 - **Visualization** - Pre-configured Grafana dashboard for real-time metrics visualization
-- **Production Ready** - Complete Kubernetes deployment with resource limits and health checks
+- **Cluster Ready** - Complete Kubernetes deployment with resource limits and health checks
 - **Self-Contained** - Entire cluster runs in a single Docker container using k3d
 
 ## Architecture
@@ -197,7 +197,7 @@ curl http://localhost:8080/metrics
 
 ### Helm Chart Configuration
 
-The `wiki-chart` is a production-ready Helm chart with the following features:
+The `wiki-chart` is a Helm chart with the following features:
 
 - **Configurable Image**: Set FastAPI image via `fastapi.image_name` in values.yaml
 - **Resource Limits**: CPU and memory limits for all components
@@ -374,13 +374,6 @@ docker builder prune -f
 - **Connection Pool**: 10 connections, max overflow 20
 - **Health Checks**: Pre-ping enabled for connection validation
 - **Migrations**: Auto-create tables on startup via SQLAlchemy
-
-### Security Considerations
-
-- Grafana admin password should be changed in production
-- PostgreSQL uses default credentials (change in production)
-- No TLS/SSL configured (add for production use)
-- Ingress has no authentication (add for production)
 
 ### Performance Characteristics
 
