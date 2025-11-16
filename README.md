@@ -111,7 +111,7 @@ For data persistence, I decided to rely on **k3d's default local-path provisione
 
 ### Version Management and Dependencies
 
-Since no specific versions for dependencies were specified, I decided to use the **latest charts available**. Given this is a test environment rather than a production system, I didn't prioritize Long-Term Support (LTS) versions. In production, I would be more conservative with version selection and pin specific versions for reproducibility.
+Since no specific versions for dependencies were specified, I decided to use the **latest charts available**. Given this is a test environment rather than a production system, I didn't prioritize Long-Term Support (LTS) versions.
 
 ### Wait Strategies
 
