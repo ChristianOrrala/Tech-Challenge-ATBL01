@@ -1,8 +1,3 @@
-# Namespace Configuration
-namespace:
-  create: true
-  name: wiki-app
-
 # FastAPI Application Configuration
 fastapi:
   enabled: true
@@ -203,7 +198,7 @@ ingress:
               port:
                 number: 8000
         - path: /openapi.json
-          pathType: Exact
+          pathType: Prefix
           backend:
             service:
               name: wiki-chart-fastapi
