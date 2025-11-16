@@ -35,36 +35,6 @@ This project implements a scalable API service for managing users and posts, sim
 
 ![Wiki Service Architecture](docs/img/wiki-service.png)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Docker Container                          │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │              k3d Kubernetes Cluster                    │  │
-│  │                                                         │  │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌────────────┐  │  │
-│  │  │   FastAPI    │  │  PostgreSQL  │  │ Prometheus │  │  │
-│  │  │   Service    │──│   Database   │  │            │  │  │
-│  │  │  (Port 8000) │  │  (Port 5432) │  │ (Port 9090)│  │  │
-│  │  └──────┬───────┘  └──────────────┘  └─────┬──────┘  │  │
-│  │         │                                    │         │  │
-│  │         │           ┌──────────────┐        │         │  │
-│  │         │           │   Grafana    │        │         │  │
-│  │         │           │  Dashboard   │────────┘         │  │
-│  │         │           │  (Port 80)   │                  │  │
-│  │         │           └──────┬───────┘                  │  │
-│  │         │                  │                          │  │
-│  │  ┌──────┴──────────────────┴──────────────────────┐  │  │
-│  │  │         NGINX Ingress Controller               │  │  │
-│  │  │              (Port 80)                          │  │  │
-│  │  └─────────────────────────────────────────────────┘  │  │
-│  └───────────────────────────────────────────────────────┘  │
-│                         │                                    │
-│                    Port 8080                                 │
-└─────────────────────────┼────────────────────────────────────┘
-                          │
-                    localhost:8080
-```
-
 ### Data Model
 
 The API manages two main entities with a one-to-many relationship:
