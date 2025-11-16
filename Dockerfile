@@ -49,5 +49,12 @@ RUN chmod +x /entrypoint.sh
 # Expose port 8080 for the ingress
 EXPOSE 8080
 
+# Environment variables for runtime configuration
+# HOST_PORT: The host port where the application is accessible (default: 8080)
+# HOST_NAME: The hostname or IP where the application is accessible (default: localhost)
+# Usage: docker run -e HOST_PORT=9999 -e HOST_NAME=myserver.com -p 9999:8080 ...
+ENV HOST_PORT=8080 \
+    HOST_NAME=localhost
+
 # Set entrypoint
 ENTRYPOINT ["/entrypoint.sh"]

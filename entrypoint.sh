@@ -2,6 +2,12 @@
 
 set -e
 
+# Environment variables for host configuration
+# These can be overridden when running the container:
+# docker run -e HOST_PORT=9999 -e HOST_NAME=myserver.com -p 9999:8080 ...
+HOST_PORT=${HOST_PORT:-8080}
+HOST_NAME=${HOST_NAME:-localhost}
+
 # Color codes for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -140,15 +146,15 @@ log_info "==================================================="
 log_info "Wiki Cluster is ready!"
 log_info "==================================================="
 log_info "Available endpoints:"
-log_info "  - FastAPI Users:      http://localhost:8080/users/"
-log_info "  - FastAPI User (id):  http://localhost:8080/user/{id}"
-log_info "  - FastAPI Posts:      http://localhost:8080/posts/"
-log_info "  - API Docs:           http://localhost:8080/docs"
-log_info "  - OpenAPI Schema:     http://localhost:8080/openapi.json"
-log_info "  - Metrics:            http://localhost:8080/metrics"
-log_info "  - Grafana:            http://localhost:8080/grafana/"
+log_info "  - FastAPI Users:      http://${HOST_NAME}:${HOST_PORT}/users/"
+log_info "  - FastAPI User (id):  http://${HOST_NAME}:${HOST_PORT}/user/{id}"
+log_info "  - FastAPI Posts:      http://${HOST_NAME}:${HOST_PORT}/posts/"
+log_info "  - API Docs:           http://${HOST_NAME}:${HOST_PORT}/docs"
+log_info "  - OpenAPI Schema:     http://${HOST_NAME}:${HOST_PORT}/openapi.json"
+log_info "  - Metrics:            http://${HOST_NAME}:${HOST_PORT}/metrics"
+log_info "  - Grafana:            http://${HOST_NAME}:${HOST_PORT}/grafana/"
 log_info "    (username: admin, password: admin)"
-log_info "    Dashboard:          http://localhost:8080/grafana/d/creation-dashboard-678/creation"
+log_info "    Dashboard:          http://${HOST_NAME}:${HOST_PORT}/grafana/d/creation-dashboard-678/creation"
 log_info "==================================================="
 
 # Keep container running
