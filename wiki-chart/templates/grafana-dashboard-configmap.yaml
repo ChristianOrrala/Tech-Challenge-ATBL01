@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "wiki-chart.fullname" . }}-grafana-dashboards
+  namespace: {{ .Values.namespace.name }}
   labels:
     {{- include "wiki-chart.labels" . | nindent 4 }}
     grafana_dashboard: "1"

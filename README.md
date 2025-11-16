@@ -9,7 +9,7 @@ Containerized Wikipedia-like API service with user/post management, metrics coll
 - FastAPI REST service for users and posts management
 - PostgreSQL with async support and proper relationships
 - Prometheus metrics collection with pre-configured Grafana dashboards
-- Kubernetes deployment with NGINX Ingress Controller
+- Kubernetes deployment with NGINX Ingress Controller in dedicated `wiki-app` namespace
 - Self-contained k3d cluster in a single Docker container
 
 ## Architecture
@@ -238,9 +238,10 @@ Access at http://localhost:8000/docs
 ```bash
 docker exec -it wiki-cluster bash
 
-kubectl get pods,svc,ingress
-kubectl logs <pod-name>
-kubectl top pods  # Resource usage
+kubectl get pods,svc,ingress -n wiki-app
+kubectl logs <pod-name> -n wiki-app
+kubectl top pods -n wiki-app  # Resource usage
+kubectl get namespaces  # List all namespaces
 ```
 
 ## Troubleshooting
@@ -265,4 +266,4 @@ docker rmi wiki-cluster wiki-service:latest
 - **Security**: Hardcoded credentials for test environment only
 - **Ingress**: NGINX replaces default Traefik for production similarity
 - **Versions**: Latest charts used (test environment, not LTS)
-- **Namespace**: Default namespace for simplicity
+- **Namespace**: All components deployed to dedicated `wiki-app` namespace for resource isolation
