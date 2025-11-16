@@ -54,17 +54,11 @@ dockerd-entrypoint.sh dockerd \
 # Wait for Docker daemon to be ready
 wait_for 60 2 "docker info >/dev/null 2>&1" "Waiting for Docker daemon to be ready..."
 
-# Load pre-built wiki-service image
-if [ -f /tmp/wiki-service.tar ]; then
-    log_info "Loading pre-built wiki-service image..."
-    docker load -i /tmp/wiki-service.tar
-    log_info "Wiki-service image loaded successfully"
-else
-    log_warn "Pre-built image not found, building wiki-service image..."
-    cd /workspace
-    docker build -t wiki-service:latest ./wiki-service
-    log_info "Wiki-service image built successfully"
-fi
+# Build wiki-service image at runtime
+log_info "Building wiki-service image..."
+cd /workspace
+docker build -t wiki-service:latest ./wiki-service
+log_info "Wiki-service image built successfully"
 
 # Verify image exists
 docker images | grep wiki-service || {
@@ -99,6 +93,14 @@ kubectl wait --namespace ingress-nginx \
     --for=condition=ready pod \
     --selector=app.kubernetes.io/component=controller \
     --timeout=300s || log_warn "Ingress controller may still be starting..."
+
+# Wait for admission webhook to have endpoints
+log_info "Waiting for NGINX Ingress admission webhook endpoints..."
+wait_for 120 5 "kubectl get endpoints -n ingress-nginx ingress-nginx-controller-admission -o jsonpath='{.subsets[*].addresses[*].ip}' | grep -q ." "Waiting for admission webhook endpoints to be available..."
+
+# Add a small delay to ensure webhook is fully initialized
+log_info "Allowing admission webhook to fully initialize..."
+sleep 10
 
 # Add Helm repositories
 log_info "Adding Helm repositories..."
@@ -138,10 +140,12 @@ log_info "==================================================="
 log_info "Wiki Cluster is ready!"
 log_info "==================================================="
 log_info "Available endpoints:"
-log_info "  - FastAPI Users:  http://localhost:8080/users/"
-log_info "  - FastAPI Posts:  http://localhost:8080/posts/"
-log_info "  - Grafana:        http://localhost:8080/grafana/d/creation-dashboard-678/creation"
+log_info "  - FastAPI Users:      http://localhost:8080/users/"
+log_info "  - FastAPI User (id):  http://localhost:8080/user/{id}"
+log_info "  - FastAPI Posts:      http://localhost:8080/posts/"
+log_info "  - Grafana:            http://localhost:8080/grafana/"
 log_info "    (username: admin, password: admin)"
+log_info "    Dashboard:          http://localhost:8080/grafana/d/creation-dashboard-678/creation"
 log_info "==================================================="
 
 # Keep container running
