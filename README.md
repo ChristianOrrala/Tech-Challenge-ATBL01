@@ -157,22 +157,23 @@ In a production scenario, these would need to be addressed with multi-node clust
 docker build -t wiki-cluster .
 ```
 
-**Note**: The build process installs k3d, kubectl, helm, and prepares the wiki-service image. First build may take 5-10 minutes.
-
 ### Running the Cluster
 
 ```bash
 docker run --privileged -p 8080:8080 --name wiki-cluster wiki-cluster
+# Then let's watch the logs to know when the cluster is ready.
+docker logs -f wiki-cluster
 ```
 
 **Important**: The `--privileged` flag is required for Docker-in-Docker functionality.
 
 **Startup Process** (approximately 3-5 minutes):
 1. Docker daemon initialization
-2. k3d cluster creation
-3. NGINX Ingress Controller deployment
-4. Helm chart installation (FastAPI, PostgreSQL, Prometheus, Grafana)
-5. Pod readiness checks
+2. wiki-service image build
+3. k3d cluster creation
+4. NGINX Ingress Controller deployment
+5. Helm chart installation (FastAPI, PostgreSQL, Prometheus, Grafana)
+6. Pod readiness checks
 
 ### Accessing Services
 
