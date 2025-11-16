@@ -103,6 +103,8 @@ Once you see "Wiki Cluster is ready!", the following endpoints are available:
 | User Details | http://localhost:8080/user/{id} | Get specific user by ID |
 | Posts API | http://localhost:8080/posts/ | Create and list posts |
 | Post Details | http://localhost:8080/posts/{id} | Get specific post by ID |
+| API Documentation | http://localhost:8080/docs | Interactive FastAPI documentation (Swagger UI) |
+| OpenAPI Schema | http://localhost:8080/openapi.json | OpenAPI/Swagger JSON specification |
 | Metrics | http://localhost:8080/metrics | Prometheus metrics endpoint |
 | Grafana | http://localhost:8080/grafana/ | Metrics dashboard |
 | Creation Dashboard | http://localhost:8080/grafana/d/creation-dashboard-678/creation | Pre-configured creation rate dashboard |

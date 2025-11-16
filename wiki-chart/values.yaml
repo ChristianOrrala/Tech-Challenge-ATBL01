@@ -187,21 +187,27 @@ ingress:
               name: wiki-chart-fastapi
               port:
                 number: 8000
-        # Uncomment to enable FastAPI documentation endpoints
-        # - path: /docs
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: wiki-chart-fastapi
-        #       port:
-        #         number: 8000
-        # - path: /openapi.json
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: wiki-chart-fastapi
-        #       port:
-        #         number: 8000
+        - path: /docs
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /openapi.json
+          pathType: Exact
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
         - path: /grafana
           pathType: Prefix
           backend:
