@@ -11,10 +11,10 @@ fastapi:
 
   resources:
     requests:
-      cpu: "100m"  # 0.10 vCPU
+      cpu: "100m" # 0.10 vCPU
       memory: "256Mi"
     limits:
-      cpu: "250m"  # 0.25 vCPU
+      cpu: "250m" # 0.25 vCPU
       memory: "512Mi"
 
   env:
@@ -39,11 +39,11 @@ postgresql:
 
     resources:
       requests:
-        cpu: "400m"  # 0.40 vCPU
+        cpu: "400m" # 0.40 vCPU
         memory: "768Mi"
       limits:
-        cpu: "700m"  # 0.70 vCPU
-        memory: "1280Mi"  # 1.25Gi
+        cpu: "600m" # 0.6 vCPU
+        memory: "1280Mi" # 1.25Gi
 
     persistence:
       enabled: true
@@ -57,10 +57,10 @@ prometheus:
   server:
     resources:
       requests:
-        cpu: "250m"  # 0.25 vCPU
+        cpu: "250m" # 0.25 vCPU
         memory: "600Mi"
       limits:
-        cpu: "450m"  # 0.45 vCPU
+        cpu: "450m" # 0.45 vCPU
         memory: "1Gi"
 
     persistentVolume:
@@ -88,10 +88,10 @@ prometheus:
   serverFiles:
     prometheus.yml:
       scrape_configs:
-        - job_name: 'fastapi'
+        - job_name: "fastapi"
           static_configs:
-            - targets: ['wiki-chart-fastapi:8000']
-          metrics_path: '/metrics'
+            - targets: ["wiki-chart-fastapi:8000"]
+          metrics_path: "/metrics"
           scrape_interval: 15s
 
 # Grafana Configuration
@@ -104,10 +104,10 @@ grafana:
 
   resources:
     requests:
-      cpu: "100m"  # 0.10 vCPU
+      cpu: "100m" # 0.10 vCPU
       memory: "256Mi"
     limits:
-      cpu: "250m"  # 0.25 vCPU
+      cpu: "250m" # 0.25 vCPU
       memory: "512Mi"
 
   service:
@@ -146,9 +146,9 @@ grafana:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - name: 'default'
+        - name: "default"
           orgId: 1
-          folder: ''
+          folder: ""
           type: file
           disableDeletion: false
           editable: true
