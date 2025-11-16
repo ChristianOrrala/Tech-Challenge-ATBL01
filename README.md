@@ -42,7 +42,7 @@ Resources consume ~70% of container capacity, leaving headroom for cluster compo
 | Component | CPU Request | CPU Limit | Memory Request | Memory Limit | Storage |
 |-----------|-------------|-----------|----------------|--------------|---------|
 | FastAPI | 100m | 250m | 256Mi | 512Mi | - |
-| PostgreSQL | 400m | 700m | 768Mi | 1280Mi | 2Gi |
+| PostgreSQL | 400m | 600m | 768Mi | 1280Mi | 2Gi |
 | Prometheus | 250m | 450m | 600Mi | 1Gi | 2Gi |
 | Grafana | 100m | 250m | 256Mi | 512Mi | 1Gi |
 | **Total** | **~1.0 vCPU** | **~2.0 vCPU** | **~2GB** | **~4GB** | **~5GB** |
@@ -95,6 +95,7 @@ Based on `test_api.sh` analysis, exposed all endpoints including `/metrics` (typ
 ### Build & Run
 
 ```bash
+#delete previous container if exists
 docker build -t wiki-cluster .
 docker run --privileged -p 8080:8080 --name wiki-cluster wiki-cluster
 docker logs -f wiki-cluster

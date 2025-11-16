@@ -60,7 +60,7 @@ prometheus:
         cpu: "250m" # 0.25 vCPU
         memory: "600Mi"
       limits:
-        cpu: "450m" # 0.45 vCPU
+        cpu: "400m" # 0.40 vCPU
         memory: "1Gi"
 
     persistentVolume:
