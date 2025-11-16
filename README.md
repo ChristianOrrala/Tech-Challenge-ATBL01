@@ -449,22 +449,6 @@ docker rmi wiki-service:latest 2>/dev/null || true
 docker builder prune -f
 ```
 
-## Technical Details
-
-### Database Configuration
-
-- **Driver**: asyncpg (async PostgreSQL adapter)
-- **Connection Pool**: 10 connections, max overflow 20
-- **Health Checks**: Pre-ping enabled for connection validation
-- **Migrations**: Auto-create tables on startup via SQLAlchemy
-
-### Performance Characteristics
-
-- **Startup Time**: 3-5 minutes for full cluster initialization
-- **API Response**: <100ms for simple CRUD operations
-- **Concurrent Requests**: Supports 100+ concurrent connections via connection pooling
-- **Metrics Scrape**: Every 15 seconds
-
 ## License
 
 This project is part of the ATBL01 assignment.
