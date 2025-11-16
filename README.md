@@ -12,6 +12,8 @@ Containerized Wikipedia-like API service with user/post management, metrics coll
 - Kubernetes deployment with NGINX Ingress Controller in dedicated `wiki-app` namespace
 - Self-contained k3d cluster in a single Docker container
 
+![Wiki Dashboard](docs/img/wiki-dashboard.jpg)
+
 ## Architecture
 
 ![Wiki Service Architecture](docs/img/wiki-service.png)
@@ -147,10 +149,10 @@ chmod +x wiki-service/test_api.sh
 ```bash
 # Generate continuous traffic for dashboard testing
 while true; do
-  curl -X POST http://localhost:8080/users/ \
+  curl -X POST http://localhost:8080/users \
     -H "Content-Type: application/json" \
     -d "{\"name\": \"User-$(date +%s)\"}"
-  curl -X POST http://localhost:8080/posts/ \
+  curl -X POST http://localhost:8080/posts \
     -H "Content-Type: application/json" \
     -d "{\"user_id\": 1, \"content\": \"Post at $(date)\"}"
   sleep 2
@@ -173,17 +175,17 @@ The 70% resource allocation was validated by:
 ### Create User
 
 ```bash
-curl -X POST http://localhost:8080/users/ \
+curl -X POST http://localhost:8080/users \
   -H "Content-Type: application/json" \
-  -d '{"name": "John Doe"}'
+  -d '{"name": "Chris"}'
 ```
 
 ### Create Post
 
 ```bash
-curl -X POST http://localhost:8080/posts/ \
+curl -X POST http://localhost:8080/posts \
   -H "Content-Type: application/json" \
-  -d '{"content": "My first post", "user_id": 1}'
+  -d '{"content": "New Post", "user_id": 1}'
 ```
 
 ### View Metrics
