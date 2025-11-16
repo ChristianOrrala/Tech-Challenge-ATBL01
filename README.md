@@ -104,9 +104,9 @@ Startup takes 3-5 minutes. Wait for "Wiki Cluster is ready!" message.
 
 | Endpoint | URL | Description |
 |----------|-----|-------------|
-| Users API | http://localhost:8080/users/ | Create/list users |
+| Users API | http://localhost:8080/users/ | Create users |
 | User Details | http://localhost:8080/user/{id} | Get user by ID |
-| Posts API | http://localhost:8080/posts/ | Create/list posts |
+| Posts API | http://localhost:8080/posts/ | Create posts |
 | Post Details | http://localhost:8080/posts/{id} | Get post by ID |
 | API Docs | http://localhost:8080/docs | Swagger UI |
 | Metrics | http://localhost:8080/metrics | Prometheus endpoint |
