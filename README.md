@@ -119,7 +119,7 @@ There's a mix of native `wait` commands and a custom `wait_for` function to give
 
 ### Security Considerations and Trade-offs
 
-Being a self-contained environment for a test challenge, I decided to keep **passwords and credentials hardcoded** in variable files, which is not recommended for production environments where we would use Kubernetes Secrets, sealed secrets, or external secret management solutions.
+Being a self-contained environment for a test challenge, I decided to keep **passwords and credentials hardcoded** in variable files, which is not recommended for production environments where we would use Kubernetes Secrets or external secret management solutions.
 
 The scope of this project does not address **High Availability, network policies, or Role-Based Access Control (RBAC)**. I understand this lack of security measures is expected in a testing environment for practice purposes, but these would be primary considerations in more complete or production-ready deployments.
 
