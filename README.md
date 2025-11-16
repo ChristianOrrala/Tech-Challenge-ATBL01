@@ -69,7 +69,7 @@ Resources consume ~70% of container capacity, leaving headroom for cluster compo
 
 **Grafana Dashboard Automation**: Used sidecar pattern with ConfigMap containing pre-configured JSON dashboard, eliminating manual import steps.
 
-**Namespace Isolation**: Deployed all application components to a dedicated `wiki-app` namespace rather than using the default namespace. This follows Kubernetes best practices for production environments by providing logical isolation, simplified resource management, and clear component boundaries. Namespace isolation enables easier RBAC policies, resource quotas, and network policies if needed in the future, while keeping cluster organization clean and preventing naming conflicts with other applications.
+**Namespace Isolation**: All components deployed to dedicated `wiki-app` namespace following production best practices. Provides logical isolation, simplifies RBAC/quota management, and prevents naming conflicts.
 
 ### Resource Management
 
