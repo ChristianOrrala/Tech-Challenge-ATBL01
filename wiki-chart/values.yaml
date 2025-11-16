@@ -157,10 +157,6 @@ grafana:
     server:
       root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana"
       serve_from_sub_path: true
-    security:
-      disable_initial_admin_creation: true
-    auth:
-      disable_login_form: false
 
 # Ingress Configuration
 ingress:
@@ -191,20 +187,21 @@ ingress:
               name: wiki-chart-fastapi
               port:
                 number: 8000
-        - path: /docs
-          pathType: Prefix
-          backend:
-            service:
-              name: wiki-chart-fastapi
-              port:
-                number: 8000
-        - path: /openapi.json
-          pathType: Exact
-          backend:
-            service:
-              name: wiki-chart-fastapi
-              port:
-                number: 8000
+        # Uncomment to enable FastAPI documentation endpoints
+        # - path: /docs
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: wiki-chart-fastapi
+        #       port:
+        #         number: 8000
+        # - path: /openapi.json
+        #   pathType: Exact
+        #   backend:
+        #     service:
+        #       name: wiki-chart-fastapi
+        #       port:
+        #         number: 8000
         - path: /grafana
           pathType: Prefix
           backend:
