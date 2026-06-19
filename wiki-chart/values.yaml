@@ -1,0 +1,220 @@
+# FastAPI Application Configuration
+fastapi:
+  enabled: true
+  image_name: "wiki-service:latest"
+  imagePullPolicy: IfNotPresent
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 8000
+
+  resources:
+    requests:
+      cpu: "100m" # 0.10 vCPU
+      memory: "256Mi"
+    limits:
+      cpu: "250m" # 0.25 vCPU
+      memory: "512Mi"
+
+  env:
+    DB_USER: "postgres"
+    DB_PASSWORD: "postgres"
+    DB_HOST: "wiki-chart-postgresql"
+    DB_PORT: "5432"
+    DB_NAME: "wiki"
+
+# PostgreSQL Configuration (Bitnami Chart)
+postgresql:
+  enabled: true
+  namespaceOverride: wiki-app
+  auth:
+    username: "postgres"
+    password: "postgres"
+    database: "wiki"
+
+  primary:
+    # Disable resourcesPreset to use custom resource limits
+    resourcesPreset: "none"
+
+    resources:
+      requests:
+        cpu: "400m" # 0.40 vCPU
+        memory: "768Mi"
+      limits:
+        cpu: "600m" # 0.6 vCPU
+        memory: "1280Mi" # 1.25Gi
+
+    persistence:
+      enabled: true
+      size: 2Gi
+
+# Prometheus Configuration
+prometheus:
+  enabled: true
+  namespaceOverride: wiki-app
+
+  server:
+    resources:
+      requests:
+        cpu: "250m" # 0.25 vCPU
+        memory: "600Mi"
+      limits:
+        cpu: "400m" # 0.40 vCPU
+        memory: "1Gi"
+
+    persistentVolume:
+      enabled: true
+      size: 2Gi
+
+    service:
+      type: ClusterIP
+      servicePort: 9090
+
+  # Disable components we don't need
+  alertmanager:
+    enabled: false
+
+  kube-state-metrics:
+    enabled: false
+
+  prometheus-node-exporter:
+    enabled: false
+
+  prometheus-pushgateway:
+    enabled: false
+
+  # Configure scraping for FastAPI metrics
+  serverFiles:
+    prometheus.yml:
+      scrape_configs:
+        - job_name: "fastapi"
+          static_configs:
+            - targets: ["wiki-chart-fastapi:8000"]
+          metrics_path: "/metrics"
+          scrape_interval: 15s
+
+# Grafana Configuration
+grafana:
+  enabled: true
+  namespaceOverride: wiki-app
+
+  adminUser: "admin"
+  adminPassword: "admin"
+
+  resources:
+    requests:
+      cpu: "100m" # 0.10 vCPU
+      memory: "256Mi"
+    limits:
+      cpu: "250m" # 0.25 vCPU
+      memory: "512Mi"
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  persistence:
+    enabled: true
+    size: 1Gi
+
+  # Configure Prometheus as datasource
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          uid: prometheus
+          url: http://wiki-chart-prometheus-server:9090
+          access: proxy
+          isDefault: true
+
+  # Enable sidecar to load dashboards from ConfigMaps
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      folder: /tmp/dashboards
+      defaultFolderName: default
+      searchNamespace: wiki-app
+
+  # Dashboard configuration loaded from external ConfigMap
+  # See: wiki-chart/dashboards/creation-dashboard.json
+  # Deployed via: templates/grafana-dashboard-configmap.yaml
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "default"
+          orgId: 1
+          folder: ""
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /tmp/dashboards/default
+
+  # Grafana configuration for subpath
+  grafana.ini:
+    server:
+      root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana"
+      serve_from_sub_path: true
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: ""
+      paths:
+        - path: /users
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /user
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /posts
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /docs
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /openapi.json
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-fastapi
+              port:
+                number: 8000
+        - path: /grafana
+          pathType: Prefix
+          backend:
+            service:
+              name: wiki-chart-grafana
+              port:
+                number: 80

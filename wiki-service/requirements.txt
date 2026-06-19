@@ -1,0 +1,6 @@
+asyncpg==0.30.0
+fastapi==0.121.2
+pydantic==2.12.4
+prometheus_client==0.23.1
+SQLAlchemy==2.0.44
+uvicorn==0.38.0

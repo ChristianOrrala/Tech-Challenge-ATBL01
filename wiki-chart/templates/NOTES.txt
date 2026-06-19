@@ -1,0 +1,42 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your Wikipedia-like API service has been deployed successfully.
+
+1. Get the application URL by running these commands:
+{{- if .Values.ingress.enabled }}
+  The following endpoints are available:
+
+  FastAPI Service:
+    - http://localhost/users/
+    - http://localhost/posts/
+
+  Grafana Dashboard:
+    - http://localhost/grafana/d/creation-dashboard-678/creation
+    - Username: {{ .Values.grafana.adminUser }}
+    - Password: {{ .Values.grafana.adminPassword }}
+
+  Note: You may need to set up port forwarding if running locally:
+  kubectl port-forward service/{{ include "wiki-chart.fullname" . }}-nginx-ingress-controller 80:80
+{{- else }}
+  FastAPI is available at:
+  kubectl port-forward service/{{ include "wiki-chart.fullname" . }}-fastapi {{ .Values.fastapi.service.port }}:{{ .Values.fastapi.service.port }}
+
+  Then visit http://localhost:{{ .Values.fastapi.service.port }}
+{{- end }}
+
+2. Check the status of your deployment:
+  kubectl get pods -l "app.kubernetes.io/instance={{ .Release.Name }}"
+
+3. View FastAPI logs:
+  kubectl logs -l "app.kubernetes.io/component=fastapi" -f
+
+4. Database connection info:
+  Host: {{ .Values.fastapi.env.DB_HOST }}
+  Database: {{ .Values.fastapi.env.DB_NAME }}
+  User: {{ .Values.fastapi.env.DB_USER }}
+
+5. Prometheus metrics:
+  The FastAPI application exposes metrics at /metrics endpoint
+  Prometheus is configured to scrape these metrics automatically
+
+For more information, visit the project documentation.
